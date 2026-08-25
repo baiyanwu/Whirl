@@ -19,6 +19,15 @@ EXPORT_OPTIONS="${OUTPUT_DIR}/ExportOptions.plist"
 : "${SIGNING_IDENTITY:?Set SIGNING_IDENTITY to your Developer ID Application certificate name.}"
 : "${NOTARY_PROFILE:?Set NOTARY_PROFILE to a notarytool Keychain profile.}"
 
+NOTARY_KEYCHAIN_ARGS=()
+if [[ -n "${NOTARY_KEYCHAIN:-}" ]]; then
+  if [[ ! -f "${NOTARY_KEYCHAIN}" ]]; then
+    print -u2 "Notary keychain not found: ${NOTARY_KEYCHAIN}"
+    exit 2
+  fi
+  NOTARY_KEYCHAIN_ARGS=(--keychain "${NOTARY_KEYCHAIN}")
+fi
+
 if [[ "${SIGNING_IDENTITY}" != "Developer ID Application:"* ]]; then
   print -u2 "SIGNING_IDENTITY must name a Developer ID Application certificate."
   exit 2
@@ -60,12 +69,18 @@ codesign --verify --deep --strict --verbose=2 "${EXPORT_DIR}/Whirl.app"
 ditto "${EXPORT_DIR}/Whirl.app" "${STAGING_DIR}/Whirl.app"
 ln -sfn /Applications "${STAGING_DIR}/Applications"
 hdiutil create -volname Whirl -srcfolder "${STAGING_DIR}" -ov -format UDZO "${DMG_PATH}"
-codesign --force --sign "${SIGNING_IDENTITY}" "${DMG_PATH}"
+codesign --force --timestamp --sign "${SIGNING_IDENTITY}" "${DMG_PATH}"
 codesign --verify --strict --verbose=2 "${DMG_PATH}"
 
-xcrun notarytool submit "${DMG_PATH}" --keychain-profile "${NOTARY_PROFILE}" --wait
+xcrun notarytool submit \
+  "${DMG_PATH}" \
+  --keychain-profile "${NOTARY_PROFILE}" \
+  "${NOTARY_KEYCHAIN_ARGS[@]}" \
+  --wait \
+  --timeout 30m
 xcrun stapler staple "${DMG_PATH}"
 xcrun stapler validate "${DMG_PATH}"
+hdiutil verify "${DMG_PATH}"
 spctl --assess --type open --context context:primary-signature --verbose=2 "${DMG_PATH}"
 
 (

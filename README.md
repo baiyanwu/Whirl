@@ -98,7 +98,7 @@ project.yml     Source of truth for the generated Xcode project
 
 ## Release
 
-Official binary releases must be signed with Developer ID, notarized by Apple, stapled, and verified before upload. The repository deliberately does not produce or publish an unsigned end-user build. Maintainers should follow [docs/RELEASING.md](docs/RELEASING.md).
+Official binary releases are produced from `vX.Y.Z` tags by GitHub Actions. The release workflow runs tests, signs with Developer ID, notarizes with Apple, staples and verifies the ticket, checks Gatekeeper acceptance and SHA-256 integrity, and only then creates the GitHub Release. The repository deliberately does not publish an unsigned end-user build. Maintainers should follow [docs/RELEASING.md](docs/RELEASING.md).
 
 ## Contributing and support
 

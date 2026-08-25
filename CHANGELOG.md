@@ -16,6 +16,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - English and Simplified Chinese localization.
 - Open-source governance, security, privacy, contribution, and release documentation.
 - GitHub Actions workflows for macOS build verification, unit tests, and CodeQL analysis.
+- Tag-triggered GitHub Actions releases with Developer ID signing, Apple notarization, Gatekeeper verification, and automatic GitHub Release creation.
 - GitHub issue forms, pull-request checklist, CODEOWNERS, and Dependabot configuration.
 
 [Unreleased]: https://github.com/baiyanwu/Whirl/commits/main
