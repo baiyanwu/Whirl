@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Questions and usage help
+    url: https://github.com/baiyanwu/Whirl/discussions
+    about: Ask usage and troubleshooting questions in GitHub Discussions.
+  - name: Security vulnerability
+    url: https://github.com/baiyanwu/Whirl/security/advisories/new
+    about: Report suspected vulnerabilities privately. Do not open a public issue.

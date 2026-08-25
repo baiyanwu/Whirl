@@ -1,0 +1,9 @@
+* text=auto eol=lf
+
+*.png binary
+*.xcstrings text eol=lf
+*.pbxproj text eol=lf
+*.plist text eol=lf
+*.swift text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf

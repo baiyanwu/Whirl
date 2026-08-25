@@ -1,0 +1,722 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		021C9343A1868834D19C20C0 /* KeyCaptureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E77BFC501861DC852C9727F7 /* KeyCaptureView.swift */; };
+		049DB5A8A248F4347D7B3D1F /* PersistenceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F0A2A925C54138464B36B78 /* PersistenceService.swift */; };
+		06F35A95DFBD2288299190DD /* AppLauncher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EC9C591CA137B3294A340CA /* AppLauncher.swift */; };
+		10F9E46B11B4B7034875C9F1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 90FCC2195540C9CB04E2D4EA /* Assets.xcassets */; };
+		1474F80EDF201FEF300B7C50 /* SettingsRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5B014040F95BFC20804A6C /* SettingsRootView.swift */; };
+		1D278FE857F3ADB6C1A95833 /* PermissionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 825C27F85C783B0651CCD082 /* PermissionService.swift */; };
+		1D418C1DEDC7F5C31B0763D1 /* OptionGestureStateMachineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFC479132B702409D794476D /* OptionGestureStateMachineTests.swift */; };
+		1DCEE41EE09B0FBE95B0B4D3 /* ConfiguredApplicationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02655A2C983CD10FFBE2D23F /* ConfiguredApplicationsView.swift */; };
+		2047A4E150D0A7C5B7037639 /* WindowService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C6CA31FCA1658254C1C29B4 /* WindowService.swift */; };
+		22EFAC4B9169AE8553FFAE38 /* GeneralSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B723962B9FB19F51482CD1 /* GeneralSettingsView.swift */; };
+		2880034544A0A6A0139A1591 /* AppBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C95397BE838558E77D1C551 /* AppBinding.swift */; };
+		29578B9EFAFC1B46359F5DA4 /* OverlayRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C9BF87AE488281D589EE231 /* OverlayRootView.swift */; };
+		2F0418C1EAD690AD0A84B73E /* AppResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A8E495A944A4EF1CC56B75 /* AppResolver.swift */; };
+		4526AEA2BE3AC11C31725723 /* WhirlApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E78065AD2129CB1268B59E /* WhirlApp.swift */; };
+		4850C0B44B7CECB34D15BB79 /* GlobalHotKeyService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2500FC0F0B6B15AE7441BA89 /* GlobalHotKeyService.swift */; };
+		488CCC8F51E5707C5A89A82B /* CoreModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDE809240BB4630A4F3EBC7 /* CoreModelTests.swift */; };
+		4901655302003F5190DBC2E6 /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49C3AB47F988A563A537EF7 /* AboutView.swift */; };
+		4C3B91E62313DA9C37B14929 /* AppPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3529EF374FC115739CB17ED9 /* AppPreferences.swift */; };
+		562D511131E4A031F89A8E06 /* OverlayPanelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F1E6CDFB633F5AAE1604D0 /* OverlayPanelController.swift */; };
+		5BD5C5D798A3C6831CDE172E /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F4EEE872A4A15776A2976FC /* WelcomeView.swift */; };
+		7161C6D00FC0DE5E6FA6EE32 /* AppEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC16A351515705DA24E00FF8 /* AppEnvironment.swift */; };
+		73B30326ED73F2FE3635FDDE /* KeyBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9249C40C105236762A49499D /* KeyBinding.swift */; };
+		7ABF764CBAB0BF060A07A479 /* AppModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF2147DBBBE6053315DCA75 /* AppModel.swift */; };
+		8B88DF77FB377C2A6E30F431 /* PrimaryWindowCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F921A5BEBA5DF9B35F4B849 /* PrimaryWindowCoordinator.swift */; };
+		AAF91CA9591376ABFF980562 /* LaunchAtLoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EEEA3A4AE7AB1DC047AC67E /* LaunchAtLoginService.swift */; };
+		AC92D5094234FC5D7EA28131 /* WindowDescriptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23952D3F484365191EBAE9E6 /* WindowDescriptor.swift */; };
+		BB3AC4BFD045CD9B2D971EC2 /* OptionGestureStateMachine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B34EF3F703CAC7B4C6C5C13 /* OptionGestureStateMachine.swift */; };
+		C297154E3D202B8825DCC1A1 /* WhirlUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7AFF6B0E2E8DAC9A2C567FF /* WhirlUITests.swift */; };
+		D88B33564A079B116E5104A8 /* BindingsSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43F0BB222A7128FBE9E22C5E /* BindingsSettingsView.swift */; };
+		E88386B2BF293E6493E2F499 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74887F3BDF616A8B5EF9B4E5 /* AppDelegate.swift */; };
+		F063371077C75E3534967911 /* InstalledAppScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = B60719086F81B7FE053A1D16 /* InstalledAppScanner.swift */; };
+		F8BE5B63A71FC1AF4BADD630 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 9FFD2BE0916C137BBF7D2780 /* Localizable.xcstrings */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		73466DFD3F898D4CBC166D59 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DCCBF3FDA81727DBA6A532E0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 222DF6647FBD7ADBBE44DED2;
+			remoteInfo = Whirl;
+		};
+		959687CF0FB9D91C1E77F132 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DCCBF3FDA81727DBA6A532E0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 222DF6647FBD7ADBBE44DED2;
+			remoteInfo = Whirl;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		01B723962B9FB19F51482CD1 /* GeneralSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralSettingsView.swift; sourceTree = "<group>"; };
+		02655A2C983CD10FFBE2D23F /* ConfiguredApplicationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfiguredApplicationsView.swift; sourceTree = "<group>"; };
+		0C95397BE838558E77D1C551 /* AppBinding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppBinding.swift; sourceTree = "<group>"; };
+		0F0A2A925C54138464B36B78 /* PersistenceService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceService.swift; sourceTree = "<group>"; };
+		1C9BF87AE488281D589EE231 /* OverlayRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlayRootView.swift; sourceTree = "<group>"; };
+		1D5B014040F95BFC20804A6C /* SettingsRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsRootView.swift; sourceTree = "<group>"; };
+		1EC9C591CA137B3294A340CA /* AppLauncher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLauncher.swift; sourceTree = "<group>"; };
+		22A8E495A944A4EF1CC56B75 /* AppResolver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppResolver.swift; sourceTree = "<group>"; };
+		23952D3F484365191EBAE9E6 /* WindowDescriptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowDescriptor.swift; sourceTree = "<group>"; };
+		2500FC0F0B6B15AE7441BA89 /* GlobalHotKeyService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalHotKeyService.swift; sourceTree = "<group>"; };
+		2C6CA31FCA1658254C1C29B4 /* WindowService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowService.swift; sourceTree = "<group>"; };
+		3529EF374FC115739CB17ED9 /* AppPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppPreferences.swift; sourceTree = "<group>"; };
+		43F0BB222A7128FBE9E22C5E /* BindingsSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BindingsSettingsView.swift; sourceTree = "<group>"; };
+		4B902EF4948A0965A0003996 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		4F921A5BEBA5DF9B35F4B849 /* PrimaryWindowCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimaryWindowCoordinator.swift; sourceTree = "<group>"; };
+		5CFE43B3613ACEE713052EB6 /* Whirl.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Whirl.entitlements; sourceTree = "<group>"; };
+		60E78065AD2129CB1268B59E /* WhirlApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhirlApp.swift; sourceTree = "<group>"; };
+		6AF2147DBBBE6053315DCA75 /* AppModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppModel.swift; sourceTree = "<group>"; };
+		74887F3BDF616A8B5EF9B4E5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		7D2D4F51E1925367CD4A3687 /* WhirlTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WhirlTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		7EEEA3A4AE7AB1DC047AC67E /* LaunchAtLoginService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchAtLoginService.swift; sourceTree = "<group>"; };
+		825C27F85C783B0651CCD082 /* PermissionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionService.swift; sourceTree = "<group>"; };
+		8B34EF3F703CAC7B4C6C5C13 /* OptionGestureStateMachine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionGestureStateMachine.swift; sourceTree = "<group>"; };
+		90FCC2195540C9CB04E2D4EA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		9249C40C105236762A49499D /* KeyBinding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyBinding.swift; sourceTree = "<group>"; };
+		9F4EEE872A4A15776A2976FC /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
+		9FFD2BE0916C137BBF7D2780 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
+		ABAADF503C1305A3FECBD409 /* WhirlUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WhirlUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B60719086F81B7FE053A1D16 /* InstalledAppScanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstalledAppScanner.swift; sourceTree = "<group>"; };
+		BEDE809240BB4630A4F3EBC7 /* CoreModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreModelTests.swift; sourceTree = "<group>"; };
+		C49C3AB47F988A563A537EF7 /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
+		C7AFF6B0E2E8DAC9A2C567FF /* WhirlUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhirlUITests.swift; sourceTree = "<group>"; };
+		CFC479132B702409D794476D /* OptionGestureStateMachineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionGestureStateMachineTests.swift; sourceTree = "<group>"; };
+		E77BFC501861DC852C9727F7 /* KeyCaptureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyCaptureView.swift; sourceTree = "<group>"; };
+		EF2ED2D419A33FDC4DB6065E /* Whirl.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Whirl.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F8F1E6CDFB633F5AAE1604D0 /* OverlayPanelController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlayPanelController.swift; sourceTree = "<group>"; };
+		FC16A351515705DA24E00FF8 /* AppEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppEnvironment.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		186508AC00CBE5227126683A /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				A35E9CE2F1A8316FD5B786CD /* Components */,
+				AF76C30FFE10E2D882C514D2 /* Overlay */,
+				7B2DBCC7B8F1A4B1BAF10A50 /* Settings */,
+				247B11B0931ECA9AB69A3D1C /* Welcome */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		19D39CCD39F41E4CE0563860 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				1EC9C591CA137B3294A340CA /* AppLauncher.swift */,
+				22A8E495A944A4EF1CC56B75 /* AppResolver.swift */,
+				2500FC0F0B6B15AE7441BA89 /* GlobalHotKeyService.swift */,
+				B60719086F81B7FE053A1D16 /* InstalledAppScanner.swift */,
+				7EEEA3A4AE7AB1DC047AC67E /* LaunchAtLoginService.swift */,
+				825C27F85C783B0651CCD082 /* PermissionService.swift */,
+				0F0A2A925C54138464B36B78 /* PersistenceService.swift */,
+				2C6CA31FCA1658254C1C29B4 /* WindowService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		247B11B0931ECA9AB69A3D1C /* Welcome */ = {
+			isa = PBXGroup;
+			children = (
+				9F4EEE872A4A15776A2976FC /* WelcomeView.swift */,
+			);
+			path = Welcome;
+			sourceTree = "<group>";
+		};
+		5E22DDA325B7EFA88EB13796 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				0C95397BE838558E77D1C551 /* AppBinding.swift */,
+				3529EF374FC115739CB17ED9 /* AppPreferences.swift */,
+				9249C40C105236762A49499D /* KeyBinding.swift */,
+				8B34EF3F703CAC7B4C6C5C13 /* OptionGestureStateMachine.swift */,
+				23952D3F484365191EBAE9E6 /* WindowDescriptor.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		6814AC5B53BE74C2F09B11BA /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				90FCC2195540C9CB04E2D4EA /* Assets.xcassets */,
+				4B902EF4948A0965A0003996 /* Info.plist */,
+				9FFD2BE0916C137BBF7D2780 /* Localizable.xcstrings */,
+				5CFE43B3613ACEE713052EB6 /* Whirl.entitlements */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		6DB25D5DB8C2D85C6C4DAF5B /* App */ = {
+			isa = PBXGroup;
+			children = (
+				74887F3BDF616A8B5EF9B4E5 /* AppDelegate.swift */,
+				FC16A351515705DA24E00FF8 /* AppEnvironment.swift */,
+				6AF2147DBBBE6053315DCA75 /* AppModel.swift */,
+				4F921A5BEBA5DF9B35F4B849 /* PrimaryWindowCoordinator.swift */,
+				60E78065AD2129CB1268B59E /* WhirlApp.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		7B2DBCC7B8F1A4B1BAF10A50 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				C49C3AB47F988A563A537EF7 /* AboutView.swift */,
+				43F0BB222A7128FBE9E22C5E /* BindingsSettingsView.swift */,
+				02655A2C983CD10FFBE2D23F /* ConfiguredApplicationsView.swift */,
+				01B723962B9FB19F51482CD1 /* GeneralSettingsView.swift */,
+				1D5B014040F95BFC20804A6C /* SettingsRootView.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		95367D566392BB9C6A76AF43 /* WhirlTests */ = {
+			isa = PBXGroup;
+			children = (
+				BEDE809240BB4630A4F3EBC7 /* CoreModelTests.swift */,
+				CFC479132B702409D794476D /* OptionGestureStateMachineTests.swift */,
+			);
+			path = WhirlTests;
+			sourceTree = "<group>";
+		};
+		9F7AA8674A96AFBEF3773828 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				EF2ED2D419A33FDC4DB6065E /* Whirl.app */,
+				7D2D4F51E1925367CD4A3687 /* WhirlTests.xctest */,
+				ABAADF503C1305A3FECBD409 /* WhirlUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		A35E9CE2F1A8316FD5B786CD /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				E77BFC501861DC852C9727F7 /* KeyCaptureView.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		AF76C30FFE10E2D882C514D2 /* Overlay */ = {
+			isa = PBXGroup;
+			children = (
+				F8F1E6CDFB633F5AAE1604D0 /* OverlayPanelController.swift */,
+				1C9BF87AE488281D589EE231 /* OverlayRootView.swift */,
+			);
+			path = Overlay;
+			sourceTree = "<group>";
+		};
+		BD4BF324B4FDF933F24338DF /* WhirlUITests */ = {
+			isa = PBXGroup;
+			children = (
+				C7AFF6B0E2E8DAC9A2C567FF /* WhirlUITests.swift */,
+			);
+			path = WhirlUITests;
+			sourceTree = "<group>";
+		};
+		C2D1DD4F7031770BAB2F6658 = {
+			isa = PBXGroup;
+			children = (
+				F9C7940AB12275D13724D53C /* Whirl */,
+				95367D566392BB9C6A76AF43 /* WhirlTests */,
+				BD4BF324B4FDF933F24338DF /* WhirlUITests */,
+				9F7AA8674A96AFBEF3773828 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		F9C7940AB12275D13724D53C /* Whirl */ = {
+			isa = PBXGroup;
+			children = (
+				6DB25D5DB8C2D85C6C4DAF5B /* App */,
+				5E22DDA325B7EFA88EB13796 /* Models */,
+				6814AC5B53BE74C2F09B11BA /* Resources */,
+				19D39CCD39F41E4CE0563860 /* Services */,
+				186508AC00CBE5227126683A /* UI */,
+			);
+			path = Whirl;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		222DF6647FBD7ADBBE44DED2 /* Whirl */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EF52F1FEDAE1CA5F267ACC32 /* Build configuration list for PBXNativeTarget "Whirl" */;
+			buildPhases = (
+				0B4DF93E1E2A8BB623D94EDB /* Sources */,
+				25DBC3817568A24B198C3314 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Whirl;
+			packageProductDependencies = (
+			);
+			productName = Whirl;
+			productReference = EF2ED2D419A33FDC4DB6065E /* Whirl.app */;
+			productType = "com.apple.product-type.application";
+		};
+		342DB5023CF5820EA2AB8672 /* WhirlUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E675EBB01F72BA7D872EC156 /* Build configuration list for PBXNativeTarget "WhirlUITests" */;
+			buildPhases = (
+				D56C01DF3A3402BF3ED13B2D /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				5AECB1DC5A2E2848FCC00743 /* PBXTargetDependency */,
+			);
+			name = WhirlUITests;
+			packageProductDependencies = (
+			);
+			productName = WhirlUITests;
+			productReference = ABAADF503C1305A3FECBD409 /* WhirlUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+		90AB27E84AA21B910A4CC1B7 /* WhirlTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D365CAFC0A67D91644806982 /* Build configuration list for PBXNativeTarget "WhirlTests" */;
+			buildPhases = (
+				EB4D442EA0894496DA522432 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				9248D5644C77EE010832F7B2 /* PBXTargetDependency */,
+			);
+			name = WhirlTests;
+			packageProductDependencies = (
+			);
+			productName = WhirlTests;
+			productReference = 7D2D4F51E1925367CD4A3687 /* WhirlTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		DCCBF3FDA81727DBA6A532E0 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 2600;
+				TargetAttributes = {
+					222DF6647FBD7ADBBE44DED2 = {
+						DevelopmentTeam = "";
+						ProvisioningStyle = Automatic;
+					};
+					342DB5023CF5820EA2AB8672 = {
+						DevelopmentTeam = "";
+						ProvisioningStyle = Automatic;
+						TestTargetID = 222DF6647FBD7ADBBE44DED2;
+					};
+					90AB27E84AA21B910A4CC1B7 = {
+						DevelopmentTeam = "";
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 0763C47500B20F19F811D705 /* Build configuration list for PBXProject "Whirl" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+				"zh-Hans",
+			);
+			mainGroup = C2D1DD4F7031770BAB2F6658;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 9F7AA8674A96AFBEF3773828 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				222DF6647FBD7ADBBE44DED2 /* Whirl */,
+				90AB27E84AA21B910A4CC1B7 /* WhirlTests */,
+				342DB5023CF5820EA2AB8672 /* WhirlUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		25DBC3817568A24B198C3314 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				10F9E46B11B4B7034875C9F1 /* Assets.xcassets in Resources */,
+				F8BE5B63A71FC1AF4BADD630 /* Localizable.xcstrings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		0B4DF93E1E2A8BB623D94EDB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4901655302003F5190DBC2E6 /* AboutView.swift in Sources */,
+				2880034544A0A6A0139A1591 /* AppBinding.swift in Sources */,
+				E88386B2BF293E6493E2F499 /* AppDelegate.swift in Sources */,
+				7161C6D00FC0DE5E6FA6EE32 /* AppEnvironment.swift in Sources */,
+				06F35A95DFBD2288299190DD /* AppLauncher.swift in Sources */,
+				7ABF764CBAB0BF060A07A479 /* AppModel.swift in Sources */,
+				4C3B91E62313DA9C37B14929 /* AppPreferences.swift in Sources */,
+				2F0418C1EAD690AD0A84B73E /* AppResolver.swift in Sources */,
+				D88B33564A079B116E5104A8 /* BindingsSettingsView.swift in Sources */,
+				1DCEE41EE09B0FBE95B0B4D3 /* ConfiguredApplicationsView.swift in Sources */,
+				22EFAC4B9169AE8553FFAE38 /* GeneralSettingsView.swift in Sources */,
+				4850C0B44B7CECB34D15BB79 /* GlobalHotKeyService.swift in Sources */,
+				F063371077C75E3534967911 /* InstalledAppScanner.swift in Sources */,
+				73B30326ED73F2FE3635FDDE /* KeyBinding.swift in Sources */,
+				021C9343A1868834D19C20C0 /* KeyCaptureView.swift in Sources */,
+				AAF91CA9591376ABFF980562 /* LaunchAtLoginService.swift in Sources */,
+				BB3AC4BFD045CD9B2D971EC2 /* OptionGestureStateMachine.swift in Sources */,
+				562D511131E4A031F89A8E06 /* OverlayPanelController.swift in Sources */,
+				29578B9EFAFC1B46359F5DA4 /* OverlayRootView.swift in Sources */,
+				1D278FE857F3ADB6C1A95833 /* PermissionService.swift in Sources */,
+				049DB5A8A248F4347D7B3D1F /* PersistenceService.swift in Sources */,
+				8B88DF77FB377C2A6E30F431 /* PrimaryWindowCoordinator.swift in Sources */,
+				1474F80EDF201FEF300B7C50 /* SettingsRootView.swift in Sources */,
+				5BD5C5D798A3C6831CDE172E /* WelcomeView.swift in Sources */,
+				4526AEA2BE3AC11C31725723 /* WhirlApp.swift in Sources */,
+				AC92D5094234FC5D7EA28131 /* WindowDescriptor.swift in Sources */,
+				2047A4E150D0A7C5B7037639 /* WindowService.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D56C01DF3A3402BF3ED13B2D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C297154E3D202B8825DCC1A1 /* WhirlUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EB4D442EA0894496DA522432 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				488CCC8F51E5707C5A89A82B /* CoreModelTests.swift in Sources */,
+				1D418C1DEDC7F5C31B0763D1 /* OptionGestureStateMachineTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		5AECB1DC5A2E2848FCC00743 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 222DF6647FBD7ADBBE44DED2 /* Whirl */;
+			targetProxy = 73466DFD3F898D4CBC166D59 /* PBXContainerItemProxy */;
+		};
+		9248D5644C77EE010832F7B2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 222DF6647FBD7ADBBE44DED2 /* Whirl */;
+			targetProxy = 959687CF0FB9D91C1E77F132 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		11EC3F1B6CF3586E77FC43CF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.baiyanwu.whirl.tests;
+				SDKROOT = macosx;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Whirl.app/Contents/MacOS/Whirl";
+			};
+			name = Debug;
+		};
+		4237D18D007C6E2F082E4089 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = arm64;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = "";
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 26.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_VERSION = 6.0;
+			};
+			name = Release;
+		};
+		62AB415553662904FB463849 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.baiyanwu.whirl.tests;
+				SDKROOT = macosx;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Whirl.app/Contents/MacOS/Whirl";
+			};
+			name = Release;
+		};
+		6C81E3809D10ECE4E12A4690 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Whirl/Resources/Whirl.entitlements;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				INFOPLIST_FILE = Whirl/Resources/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Whirl;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				INFOPLIST_KEY_LSUIElement = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2026 baiyanwu";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 0.1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.baiyanwu.whirl;
+				PRODUCT_NAME = Whirl;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		75B2D173C977EAE9B0814C24 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.baiyanwu.whirl.uitests;
+				SDKROOT = macosx;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = nonisolated;
+				TEST_TARGET_NAME = Whirl;
+			};
+			name = Release;
+		};
+		A3A8DC7758B1CFD03A7F30AE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Whirl/Resources/Whirl.entitlements;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				INFOPLIST_FILE = Whirl/Resources/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Whirl;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				INFOPLIST_KEY_LSUIElement = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2026 baiyanwu";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 0.1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.baiyanwu.whirl;
+				PRODUCT_NAME = Whirl;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		AC49BB5ED55F62BD7D251B0B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = arm64;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 26.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_VERSION = 6.0;
+			};
+			name = Debug;
+		};
+		B2197439AA15A91527DEB1D3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.baiyanwu.whirl.uitests;
+				SDKROOT = macosx;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = nonisolated;
+				TEST_TARGET_NAME = Whirl;
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		0763C47500B20F19F811D705 /* Build configuration list for PBXProject "Whirl" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AC49BB5ED55F62BD7D251B0B /* Debug */,
+				4237D18D007C6E2F082E4089 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		D365CAFC0A67D91644806982 /* Build configuration list for PBXNativeTarget "WhirlTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				11EC3F1B6CF3586E77FC43CF /* Debug */,
+				62AB415553662904FB463849 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		E675EBB01F72BA7D872EC156 /* Build configuration list for PBXNativeTarget "WhirlUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B2197439AA15A91527DEB1D3 /* Debug */,
+				75B2D173C977EAE9B0814C24 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		EF52F1FEDAE1CA5F267ACC32 /* Build configuration list for PBXNativeTarget "Whirl" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6C81E3809D10ECE4E12A4690 /* Debug */,
+				A3A8DC7758B1CFD03A7F30AE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = DCCBF3FDA81727DBA6A532E0 /* Project object */;
+}

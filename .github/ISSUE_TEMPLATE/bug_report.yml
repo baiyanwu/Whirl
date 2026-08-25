@@ -1,0 +1,76 @@
+name: Bug report
+description: Report a reproducible problem in Whirl
+title: "[Bug]: "
+labels:
+  - bug
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for helping improve Whirl. Do not include passwords, private window titles, signing material, or other sensitive data.
+  - type: input
+    id: version
+    attributes:
+      label: Whirl version
+      description: Enter a release version or commit SHA.
+      placeholder: 0.1.0 or abc1234
+    validations:
+      required: true
+  - type: input
+    id: macos
+    attributes:
+      label: macOS version
+      placeholder: macOS 26.0
+    validations:
+      required: true
+  - type: dropdown
+    id: hardware
+    attributes:
+      label: Apple silicon
+      options:
+        - M1 family
+        - M2 family
+        - M3 family
+        - M4 family
+        - M5 family or newer
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Reproduction steps
+      description: Provide the smallest reliable sequence that triggers the problem.
+      placeholder: |
+        1. Configure…
+        2. Press…
+        3. Observe…
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+    validations:
+      required: true
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional context
+      description: Add sanitized logs, screenshots, or a minimal sample if useful.
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Checklist
+      options:
+        - label: I searched existing issues and discussions for the same problem.
+          required: true
+        - label: I removed private information from logs and screenshots.
+          required: true
+        - label: This is not a security vulnerability.
+          required: true

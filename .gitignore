@@ -1,0 +1,25 @@
+.DS_Store
+
+# Xcode and build products
+.build/
+DerivedData/
+build/
+*.xcarchive
+*.xcresult
+*.dSYM
+*.xcuserstate
+xcuserdata/
+
+# Generated release artifacts
+release/out/
+
+# Local credentials and signing material
+.env
+.env.*
+!.env.example
+*.cer
+*.key
+*.mobileprovision
+*.p12
+*.pem
+*.provisionprofile

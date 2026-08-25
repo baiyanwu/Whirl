@@ -1,0 +1,41 @@
+name: Feature request
+description: Propose a focused improvement to Whirl
+title: "[Feature]: "
+labels:
+  - enhancement
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What user problem or workflow limitation should be addressed?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed behavior
+      description: Describe the smallest change that would solve the problem.
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: What workarounds or different designs have you tried?
+  - type: textarea
+    id: scope
+    attributes:
+      label: Keyboard-first fit
+      description: Explain how the request preserves Whirl's focused app and same-app window-switching scope.
+    validations:
+      required: true
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Checklist
+      options:
+        - label: I searched existing issues and discussions for this request.
+          required: true
+        - label: I am willing to help test or implement this change.
+          required: false
