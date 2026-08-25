@@ -43,7 +43,7 @@ jobs:
             -project Whirl.xcodeproj \
             -scheme Whirl \
             -configuration Debug \
-            -destination 'platform=macOS,arch=arm64' \
+            -destination 'generic/platform=macOS' \
             -derivedDataPath "$RUNNER_TEMP/WhirlCodeQLDerivedData" \
             CODE_SIGNING_ALLOWED=NO \
             clean build
