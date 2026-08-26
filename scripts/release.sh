@@ -2,7 +2,12 @@
 set -euo pipefail
 
 SCRIPT_DIR="${0:A:h}"
-PROJECT_DIR="${SCRIPT_DIR:h}"
+PROJECT_DIR="${WHIRL_PROJECT_DIR:-${SCRIPT_DIR:h}}"
+if [[ ! -d "${PROJECT_DIR}" ]]; then
+  print -u2 "Project directory not found: ${PROJECT_DIR}"
+  exit 2
+fi
+PROJECT_DIR="${PROJECT_DIR:A}"
 OUTPUT_DIR="${PROJECT_DIR}/release/out/signed"
 ARCHIVE_PATH="${OUTPUT_DIR}/Whirl.xcarchive"
 DERIVED_DATA_PATH="${OUTPUT_DIR}/DerivedData"

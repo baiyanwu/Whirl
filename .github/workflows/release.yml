@@ -1,4 +1,4 @@
-name: Release
+name: Release readiness
 
 on:
   push:
@@ -6,25 +6,26 @@ on:
       - "v*"
 
 permissions:
-  contents: write
+  contents: read
 
 concurrency:
-  group: release-${{ github.ref }}
+  group: release-readiness-${{ github.ref }}
   cancel-in-progress: false
 
 jobs:
-  build-sign-notarize-publish:
-    name: Build, sign, notarize, and publish
+  validate-release-tag:
+    name: Validate release tag
     runs-on: macos-26
-    timeout-minutes: 60
+    timeout-minutes: 30
 
     steps:
       - name: Check out tagged source
         uses: actions/checkout@v7
         with:
+          fetch-depth: 0
           persist-credentials: false
 
-      - name: Validate tag and project version
+      - name: Validate annotated tag and project version
         shell: bash
         run: |
           set -euo pipefail
@@ -36,50 +37,18 @@ jobs:
             exit 1
           fi
 
+          if [[ "$(git cat-file -t "$GITHUB_REF_NAME")" != "tag" ]]; then
+            echo "Release tags must be annotated tags."
+            exit 1
+          fi
+
           if [[ "$tag_version" != "$project_version" ]]; then
             echo "Tag version $tag_version does not match project version $project_version."
             exit 1
           fi
 
-          echo "RELEASE_VERSION=$project_version" >> "$GITHUB_ENV"
-
-      - name: Check required release secrets
-        shell: bash
-        env:
-          MACOS_CERTIFICATE_BASE64: ${{ secrets.MACOS_CERTIFICATE_BASE64 }}
-          MACOS_CERTIFICATE_PASSWORD: ${{ secrets.MACOS_CERTIFICATE_PASSWORD }}
-          APPLE_ID: ${{ secrets.APPLE_ID }}
-          APPLE_APP_SPECIFIC_PASSWORD: ${{ secrets.APPLE_APP_SPECIFIC_PASSWORD }}
-          APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
-          SIGNING_IDENTITY: ${{ secrets.SIGNING_IDENTITY }}
-        run: |
-          set -euo pipefail
-          missing=()
-          for name in \
-            MACOS_CERTIFICATE_BASE64 \
-            MACOS_CERTIFICATE_PASSWORD \
-            APPLE_ID \
-            APPLE_APP_SPECIFIC_PASSWORD \
-            APPLE_TEAM_ID \
-            SIGNING_IDENTITY
-          do
-            if [[ -z "${!name:-}" ]]; then
-              missing+=("$name")
-            fi
-          done
-
-          if (( ${#missing[@]} > 0 )); then
-            printf 'Missing required GitHub Actions secrets: %s\n' "${missing[*]}"
-            exit 1
-          fi
-
-          if [[ "$SIGNING_IDENTITY" != "Developer ID Application:"* ]]; then
-            echo "SIGNING_IDENTITY must name a Developer ID Application certificate."
-            exit 1
-          fi
-
-          if [[ "$SIGNING_IDENTITY" != *"(${APPLE_TEAM_ID})" ]]; then
-            echo "SIGNING_IDENTITY does not belong to APPLE_TEAM_ID."
+          if ! git merge-base --is-ancestor "$GITHUB_SHA" origin/main; then
+            echo "The tagged commit is not contained in origin/main."
             exit 1
           fi
 
@@ -90,6 +59,15 @@ jobs:
         run: |
           xcodegen generate
           git diff --exit-code -- Whirl.xcodeproj
+
+      - name: Reject executable build phases
+        shell: bash
+        run: |
+          set -euo pipefail
+          if grep -q 'PBXShellScriptBuildPhase' Whirl.xcodeproj/project.pbxproj; then
+            echo "Release projects must not contain shell-script build phases."
+            exit 1
+          fi
 
       - name: Run unit tests
         run: |
@@ -103,114 +81,22 @@ jobs:
             CODE_SIGNING_ALLOWED=NO \
             test
 
-      - name: Import Developer ID certificate
-        id: signing
-        shell: bash
-        env:
-          MACOS_CERTIFICATE_BASE64: ${{ secrets.MACOS_CERTIFICATE_BASE64 }}
-          MACOS_CERTIFICATE_PASSWORD: ${{ secrets.MACOS_CERTIFICATE_PASSWORD }}
+      - name: Verify unsigned Release build
         run: |
-          set -euo pipefail
-          certificate_path="$RUNNER_TEMP/WhirlDeveloperID.p12"
-          keychain_path="$RUNNER_TEMP/WhirlRelease.keychain-db"
-          keychain_password="$(openssl rand -base64 32)"
-
-          printf '%s' "$MACOS_CERTIFICATE_BASE64" | base64 -D > "$certificate_path"
-          security create-keychain -p "$keychain_password" "$keychain_path"
-          security set-keychain-settings -lut 21600 "$keychain_path"
-          security unlock-keychain -p "$keychain_password" "$keychain_path"
-          security import "$certificate_path" \
-            -k "$keychain_path" \
-            -P "$MACOS_CERTIFICATE_PASSWORD" \
-            -A \
-            -t cert \
-            -f pkcs12
-          security set-key-partition-list \
-            -S apple-tool:,apple: \
-            -s \
-            -k "$keychain_password" \
-            "$keychain_path"
-          security list-keychains -d user -s "$keychain_path"
-          security find-identity -v -p codesigning "$keychain_path"
-
-          echo "keychain_path=$keychain_path" >> "$GITHUB_OUTPUT"
-
-      - name: Configure Apple notarization credentials
-        shell: bash
-        env:
-          APPLE_ID: ${{ secrets.APPLE_ID }}
-          APPLE_APP_SPECIFIC_PASSWORD: ${{ secrets.APPLE_APP_SPECIFIC_PASSWORD }}
-          APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
-          NOTARY_KEYCHAIN: ${{ steps.signing.outputs.keychain_path }}
-        run: |
-          set -euo pipefail
-          xcrun notarytool store-credentials whirl-ci \
-            --apple-id "$APPLE_ID" \
-            --password "$APPLE_APP_SPECIFIC_PASSWORD" \
-            --team-id "$APPLE_TEAM_ID" \
-            --keychain "$NOTARY_KEYCHAIN" \
-            --validate
-
-      - name: Build signed and notarized DMG
-        env:
-          DEVELOPMENT_TEAM: ${{ secrets.APPLE_TEAM_ID }}
-          SIGNING_IDENTITY: ${{ secrets.SIGNING_IDENTITY }}
-          NOTARY_PROFILE: whirl-ci
-          NOTARY_KEYCHAIN: ${{ steps.signing.outputs.keychain_path }}
-        run: ./scripts/release.sh
-
-      - name: Verify final artifacts
-        shell: bash
-        run: |
-          set -euo pipefail
-          dmg="release/out/signed/Whirl-${RELEASE_VERSION}.dmg"
-          checksum="${dmg}.sha256"
-
-          test -f "$dmg"
-          test -f "$checksum"
-          (cd "$(dirname "$dmg")" && shasum -a 256 -c "$(basename "$checksum")")
-          codesign --verify --strict --verbose=2 "$dmg"
-          xcrun stapler validate "$dmg"
-          hdiutil verify "$dmg"
-          spctl --assess \
-            --type open \
-            --context context:primary-signature \
-            --verbose=2 \
-            "$dmg"
-
-      - name: Preserve release artifacts
-        uses: actions/upload-artifact@v7
-        with:
-          name: Whirl-${{ env.RELEASE_VERSION }}-signed-notarized
-          path: |
-            release/out/signed/Whirl-${{ env.RELEASE_VERSION }}.dmg
-            release/out/signed/Whirl-${{ env.RELEASE_VERSION }}.dmg.sha256
-          if-no-files-found: error
-          retention-days: 30
-
-      - name: Create GitHub Release
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          gh release create "$GITHUB_REF_NAME" \
-            "release/out/signed/Whirl-${RELEASE_VERSION}.dmg" \
-            "release/out/signed/Whirl-${RELEASE_VERSION}.dmg.sha256" \
-            --repo "$GITHUB_REPOSITORY" \
-            --verify-tag \
-            --generate-notes \
-            --title "Whirl ${RELEASE_VERSION}"
+          xcodebuild \
+            -project Whirl.xcodeproj \
+            -scheme Whirl \
+            -configuration Release \
+            -destination 'platform=macOS,arch=arm64' \
+            -derivedDataPath "$RUNNER_TEMP/WhirlReleaseDerivedData" \
+            CODE_SIGNING_ALLOWED=NO \
+            build
 
       - name: Upload test diagnostics
         if: failure()
         uses: actions/upload-artifact@v7
         with:
-          name: Whirl-release-test-diagnostics
+          name: Whirl-release-readiness-diagnostics
           path: ${{ runner.temp }}/WhirlTests.xcresult
           if-no-files-found: ignore
           retention-days: 7
-
-      - name: Remove temporary signing keychain
-        if: always() && steps.signing.outputs.keychain_path != ''
-        env:
-          NOTARY_KEYCHAIN: ${{ steps.signing.outputs.keychain_path }}
-        run: security delete-keychain "$NOTARY_KEYCHAIN"
