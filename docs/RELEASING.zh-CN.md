@@ -56,7 +56,19 @@ xcrun notarytool store-credentials whirl-local \
 
 如果版本章节缺失、章节为空、中英文条目数量不一致、条目只是裸链接，或者使用 `Full Changelog` 作为更新内容，生成器都会拒绝继续。不得再用 GitHub 自动生成的 `--generate-notes` 输出替换该正文。
 
-## 1. 准备版本
+## 1. 从 `dev` 创建发布分支
+
+发布分支严格使用带版本号的 `release/vX.Y.Z` 命名。以下示例使用 `v0.2.0`，实际操作时替换为准备发布的版本。
+
+```sh
+git switch dev
+git pull --ff-only origin dev
+git switch -c release/v0.2.0
+```
+
+此时不要打标签。只有该分支经过审查并合入 `main` 后，版本标签才有效。
+
+## 2. 在发布分支准备版本
 
 1. 在 `project.yml` 中设置 `MARKETING_VERSION` 并递增 `CURRENT_PROJECT_VERSION`。
 2. 将 `CHANGELOG.md` 中的相关条目从 `Unreleased` 移到带日期的版本章节，并在 `CHANGELOG.zh-CN.md` 中同步对应的中文发布说明。
@@ -64,14 +76,14 @@ xcrun notarytool store-credentials whirl-local \
 4. 重新生成已提交的项目并检查差异。
 
 ```sh
-zsh scripts/generate-release-notes.sh v0.1.0
+zsh scripts/generate-release-notes.sh v0.2.0
 xcodegen generate
 git diff -- project.yml Whirl.xcodeproj CHANGELOG.md CHANGELOG.zh-CN.md
 ```
 
-实际操作时，请将示例中的 `v0.1.0` 替换为本次准备发布的标签。
+发布分支创建后，只允许加入发布准备和阻断发布问题的修复；普通开发继续在 `dev` 进行。
 
-## 2. 验证并提交源码
+## 3. 验证、推送并合入发布分支
 
 ```sh
 xcodebuild \
@@ -81,27 +93,31 @@ xcodebuild \
   -derivedDataPath .build/TestDerivedData \
   CODE_SIGNING_ALLOWED=NO \
   test
+git push -u origin release/v0.2.0
 ```
 
-提交版本变更，推送 `main`，并等待 CI 和 CodeQL 通过。发布版本必须能够可复现地绑定到 `main` 中的一个确定提交。
+创建从 `release/v0.2.0` 合入 `main` 的拉取请求。等待 CI 和 CodeQL，审查完整版本内容及双语说明，所有检查通过后才能合并。禁止为尚未合入 `main` 的发布分支打标签或发布产物。
 
-## 3. 推送带注释的发布标签
+## 4. 为合入后的 `main` 提交打标签
 
-标签必须严格使用 `vX.Y.Z` 格式，并与 `project.yml` 中的 `MARKETING_VERSION` 一致：
+发布拉取请求合并后更新本地 `main`。标签必须严格使用 `vX.Y.Z` 格式、与 `MARKETING_VERSION` 一致，并指向合并后产生的 `main` 提交：
 
 ```sh
-git tag -a v0.1.0 -m "Whirl 0.1.0"
-git push origin v0.1.0
+git switch main
+git pull --ff-only origin main
+git merge-base --is-ancestor origin/release/v0.2.0 HEAD
+git tag -a v0.2.0 -m "Whirl 0.2.0"
+git push origin v0.2.0
 ```
 
-`Release readiness` 工作流会独立验证：标签是否带注释、版本是否匹配、中英文发布说明章节是否存在且包含具体条目、生成的项目是否同步、是否不存在可执行构建阶段、单元测试是否通过，以及未签名 Release 构建是否成功。该工作流只有仓库只读权限，且不使用任何签名或公证密钥。
+`Release readiness` 工作流会独立验证：标签是否带注释、标签提交是否已包含在 `origin/main` 中、版本是否匹配、中英文发布说明章节是否存在且包含具体条目、生成的项目是否同步、是否不存在可执行构建阶段、单元测试是否通过，以及未签名 Release 构建是否成功。该工作流只有仓库只读权限，不使用任何签名或公证密钥。它只验证是否可以发布，不会创建 Release。
 
-## 4. 从维护者的 Mac 发布
+## 5. 从维护者的 Mac 发布
 
-在仓库检出目录中运行一条命令：
+标签工作流成功后，在干净且与 `origin/main` 同步的本地 `main` 上运行唯一的明确发布命令：
 
 ```sh
-./scripts/publish-tag.sh v0.1.0
+./scripts/publish-tag.sh v0.2.0
 ```
 
 发布脚本会：
@@ -122,12 +138,23 @@ git push origin v0.1.0
 
 如果任一语言缺少对应的版本章节或具体改动条目，流程会在打包前停止。如果后续检查在创建草稿前失败，不会创建 Release。如果检查在上传后失败，Release 会保持为不可公开访问的草稿，以便排查。
 
-## 5. 最终验证
+## 6. 将 `main` 回合到 `dev`
+
+公开 GitHub Release 和产物复验完成后，创建从 `main` 合入 `dev` 的拉取请求。等待 CI 和 CodeQL 通过后合并，再确认已发布的 `main` 历史包含在 `dev` 中：
+
+```sh
+git fetch origin main dev
+git merge-base --is-ancestor origin/main origin/dev
+```
+
+只有两个长期分支同步后，才能删除 `release/v0.2.0`。必须将 `main` 回合到 `dev`，不要另外创建一个不同的“发布分支合入 dev”提交。完整分支规范以 [GIT_WORKFLOW.zh-CN.md](GIT_WORKFLOW.zh-CN.md) 为准。
+
+## 7. 最终验证
 
 从 GitHub Releases 下载两个公开产物并独立验证：
 
 ```sh
-shasum -a 256 -c Whirl-0.1.0.dmg.sha256
-xcrun stapler validate Whirl-0.1.0.dmg
-spctl --assess --type open --context context:primary-signature --verbose=4 Whirl-0.1.0.dmg
+shasum -a 256 -c Whirl-0.2.0.dmg.sha256
+xcrun stapler validate Whirl-0.2.0.dmg
+spctl --assess --type open --context context:primary-signature --verbose=4 Whirl-0.2.0.dmg
 ```

@@ -12,6 +12,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 - Simplified Chinese counterparts for all project documentation and GitHub contributor templates.
 - Detailed bilingual GitHub Release notes generated from the versioned English and Simplified Chinese changelog entries.
+- A documented `dev` → `release/vX.Y.Z` → `main` → tag → `dev` workflow, with CI and CodeQL coverage for development, release, and hotfix branches.
 
 ## [0.1.0] - 2026-08-26
 

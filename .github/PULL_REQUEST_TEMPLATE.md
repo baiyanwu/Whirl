@@ -13,6 +13,7 @@ Include before/after screenshots for visible UI changes, or write `Not applicabl
 ## Checklist
 
 - [ ] The change is focused and contains no unrelated cleanup.
+- [ ] The pull request targets `dev`, unless this is a versioned `release/*` or `hotfix/*` pull request into `main`.
 - [ ] Unit tests cover changed behavior, or the PR explains why they cannot.
 - [ ] `xcodebuild ... CODE_SIGNING_ALLOWED=NO test` passes locally.
 - [ ] User-facing text is covered in English and Simplified Chinese.

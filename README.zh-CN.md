@@ -100,7 +100,7 @@ project.yml     生成 Xcode 项目的事实来源
 
 ## 发布
 
-正式二进制版本从带注释的 `vX.Y.Z` 标签开始。GitHub Actions 会验证标签对应的源码，以及包含具体改动的英文和简体中文发布说明，但不会接收任何签名凭据。随后，维护者在本机从该标签的精确提交重新构建，使用只保存在本机钥匙串中的 Developer ID 身份签名，提交 Apple 公证，验证 Gatekeeper 接受状态和 SHA-256 完整性，最后将已验证产物与根据两份版本化更新日志生成的双语说明一起发布。仓库不会向最终用户发布未签名构建。维护者应遵循 [docs/RELEASING.zh-CN.md](docs/RELEASING.zh-CN.md)。
+日常改动合入 `dev`。发布版本在 `release/vX.Y.Z` 上完成稳定，然后合入稳定的 `main`，最后才能在合并后的 `main` 提交上打标签。GitHub Actions 会验证标签对应的源码，以及包含具体改动的英文和简体中文发布说明，但不会接收任何签名凭据。随后，维护者在本机从该标签的精确提交重新构建，使用只保存在本机钥匙串中的 Developer ID 身份签名，提交 Apple 公证，验证 Gatekeeper 接受状态和 SHA-256 完整性，最后将已验证产物与根据两份版本化更新日志生成的双语说明一起发布。仓库不会向最终用户发布未签名构建。维护者应遵循 [Git 工作流](docs/GIT_WORKFLOW.zh-CN.md)和[发布流程](docs/RELEASING.zh-CN.md)。
 
 ## 贡献与支持
 
