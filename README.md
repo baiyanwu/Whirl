@@ -1,5 +1,7 @@
 # Whirl
 
+[English](README.md) | [简体中文](README.zh-CN.md)
+
 [![CI](https://github.com/baiyanwu/Whirl/actions/workflows/ci.yml/badge.svg)](https://github.com/baiyanwu/Whirl/actions/workflows/ci.yml)
 [![CodeQL](https://github.com/baiyanwu/Whirl/actions/workflows/codeql.yml/badge.svg)](https://github.com/baiyanwu/Whirl/actions/workflows/codeql.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
@@ -98,7 +100,7 @@ project.yml     Source of truth for the generated Xcode project
 
 ## Release
 
-Official binary releases start from annotated `vX.Y.Z` tags. GitHub Actions verifies the tagged source without receiving signing credentials. A maintainer then rebuilds that exact tag locally, signs with a Developer ID identity held only in the local Keychain, notarizes with Apple, verifies Gatekeeper acceptance and SHA-256 integrity, and publishes the verified assets. The repository deliberately does not publish an unsigned end-user build. Maintainers should follow [docs/RELEASING.md](docs/RELEASING.md).
+Official binary releases start from annotated `vX.Y.Z` tags. GitHub Actions verifies the tagged source and its detailed English and Simplified Chinese release notes without receiving signing credentials. A maintainer then rebuilds that exact tag locally, signs with a Developer ID identity held only in the local Keychain, notarizes with Apple, verifies Gatekeeper acceptance and SHA-256 integrity, and publishes the verified assets with release notes generated from both versioned changelogs. The repository deliberately does not publish an unsigned end-user build. Maintainers should follow [docs/RELEASING.md](docs/RELEASING.md).
 
 ## Contributing and support
 

@@ -1,5 +1,7 @@
 # Code of Conduct
 
+[English](CODE_OF_CONDUCT.md) | [简体中文](CODE_OF_CONDUCT.zh-CN.md)
+
 ## Our commitment
 
 Contributors and maintainers are expected to make participation in Whirl welcoming and harassment-free, regardless of experience level, identity, background, or personal characteristics.

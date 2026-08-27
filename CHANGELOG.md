@@ -1,10 +1,17 @@
 # Changelog
 
+[English](CHANGELOG.md) | [简体中文](CHANGELOG.zh-CN.md)
+
 All notable changes to Whirl will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and the project uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+### Added
+
+- Simplified Chinese counterparts for all project documentation and GitHub contributor templates.
+- Detailed bilingual GitHub Release notes generated from the versioned English and Simplified Chinese changelog entries.
 
 ## [0.1.0] - 2026-08-26
 

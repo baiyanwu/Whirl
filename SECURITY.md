@@ -1,5 +1,7 @@
 # Security Policy
 
+[English](SECURITY.md) | [简体中文](SECURITY.zh-CN.md)
+
 ## Supported versions
 
 Security fixes are applied to the latest code on `main` and to the most recent published release when a release exists. Older releases may not receive backports.

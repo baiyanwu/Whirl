@@ -52,6 +52,12 @@ jobs:
             exit 1
           fi
 
+      - name: Validate bilingual release notes
+        shell: zsh
+        run: |
+          set -euo pipefail
+          zsh scripts/generate-release-notes.sh "$GITHUB_REF_NAME" > "$RUNNER_TEMP/Whirl-release-notes.md"
+
       - name: Install XcodeGen
         run: brew install xcodegen
 

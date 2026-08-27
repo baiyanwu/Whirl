@@ -1,5 +1,7 @@
 # Support
 
+[English](SUPPORT.md) | [简体中文](SUPPORT.zh-CN.md)
+
 - Use [GitHub Discussions](https://github.com/baiyanwu/Whirl/discussions) for setup, usage, and troubleshooting questions.
 - Use the bug-report form for a reproducible defect.
 - Use the feature-request form for a focused product proposal.

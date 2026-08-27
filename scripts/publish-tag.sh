@@ -133,6 +133,7 @@ TEMP_ROOT="$(mktemp -d /private/tmp/whirl-publish.XXXXXX)"
 WORKTREE_DIR="${TEMP_ROOT}/source"
 DOWNLOAD_DIR="${TEMP_ROOT}/published"
 MOUNT_DIR="${TEMP_ROOT}/mount"
+RELEASE_NOTES="${TEMP_ROOT}/release-notes.md"
 MOUNTED=0
 
 cleanup() {
@@ -149,6 +150,9 @@ cleanup() {
 trap cleanup EXIT INT TERM
 
 git -C "${REPOSITORY_DIR}" worktree add --detach "${WORKTREE_DIR}" "${TAG_COMMIT}"
+
+print "Generating detailed bilingual release notes from the tagged changelogs..."
+zsh "${WORKTREE_DIR}/scripts/generate-release-notes.sh" "${TAG}" > "${RELEASE_NOTES}"
 
 xcodegen generate \
   --spec "${WORKTREE_DIR}/project.yml" \
@@ -259,8 +263,16 @@ gh release create "${TAG}" \
   --repo "${GITHUB_REPOSITORY}" \
   --draft \
   --verify-tag \
-  --generate-notes \
+  --notes-file "${RELEASE_NOTES}" \
   --title "Whirl ${VERSION}"
+
+EXPECTED_RELEASE_BODY="$(< "${RELEASE_NOTES}")"
+ACTUAL_RELEASE_BODY="$(gh release view "${TAG}" \
+  --repo "${GITHUB_REPOSITORY}" \
+  --json body \
+  --jq .body)"
+[[ "${ACTUAL_RELEASE_BODY}" == "${EXPECTED_RELEASE_BODY}" ]] || \
+  fail "Draft GitHub Release notes differ from the generated bilingual notes."
 
 mkdir -p "${DOWNLOAD_DIR}"
 gh release download "${TAG}" \

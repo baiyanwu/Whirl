@@ -1,5 +1,7 @@
 # Privacy
 
+[English](PRIVACY.md) | [简体中文](PRIVACY.zh-CN.md)
+
 Whirl is designed to work locally on the Mac where it is installed.
 
 ## Data Whirl handles

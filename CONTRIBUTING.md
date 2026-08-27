@@ -1,5 +1,7 @@
 # Contributing to Whirl
 
+[English](CONTRIBUTING.md) | [简体中文](CONTRIBUTING.zh-CN.md)
+
 Whirl welcomes focused bug fixes, tests, documentation improvements, localization corrections, and feature proposals that preserve its keyboard-first scope.
 
 ## Before you start
@@ -65,7 +67,7 @@ A pull request should:
 - include tests for changed behavior, or explain why an automated test is not practical;
 - preserve English and Simplified Chinese localization coverage for user-facing strings;
 - include before/after screenshots for visible UI changes;
-- update README, privacy, security, or release documentation when behavior changes;
+- update README, privacy, security, or release documentation when behavior changes, and keep the corresponding English and Simplified Chinese documents synchronized;
 - pass CI and CodeQL.
 
 By submitting a contribution, you agree that it may be distributed under the repository's MIT License.
