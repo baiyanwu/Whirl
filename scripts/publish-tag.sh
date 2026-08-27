@@ -222,7 +222,13 @@ print -r -- "${SIGNING_DETAILS}" | grep -Eq 'flags=.*runtime' || \
 
 ENTITLEMENTS_PLIST="${TEMP_ROOT}/Whirl.entitlements.plist"
 codesign -d --entitlements :- "${APP_PATH}" > "${ENTITLEMENTS_PLIST}" 2>/dev/null
-APP_SANDBOX="$(plutil -extract com.apple.security.app-sandbox raw -o - "${ENTITLEMENTS_PLIST}")"
+if APP_SANDBOX="$(plutil -extract com.apple.security.app-sandbox raw -o - "${ENTITLEMENTS_PLIST}" 2>/dev/null)"; then
+  :
+else
+  # Xcode may omit a false sandbox entitlement when exporting a Developer ID app.
+  # An absent key and an explicit false value both mean App Sandbox is disabled.
+  APP_SANDBOX="false"
+fi
 [[ "${APP_SANDBOX}" == "false" ]] || fail "Unexpected app sandbox entitlement: ${APP_SANDBOX}"
 
 for nested_path in \
