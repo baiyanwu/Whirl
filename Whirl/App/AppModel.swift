@@ -244,6 +244,7 @@ final class AppModel: ObservableObject {
         overlayController.showApplications(
             bindings,
             modifier: preferences.switchingModifier,
+            layoutStyle: preferences.overlayLayoutStyle,
             verticalPosition: preferences.applicationOverlayVerticalPosition,
             backgroundOpacity: preferences.applicationOverlayOpacity,
             onSelect: { [weak self] binding in self?.launch(binding) },
@@ -348,6 +349,7 @@ final class AppModel: ObservableObject {
         overlayController.showWindows(
             windows,
             applicationName: application.localizedName ?? String(localized: "unknown_application"),
+            layoutStyle: preferences.overlayLayoutStyle,
             verticalPosition: preferences.windowOverlayVerticalPosition,
             backgroundOpacity: preferences.windowOverlayOpacity,
             autoHideDelay: preferences.windowPickerDisplayDuration,

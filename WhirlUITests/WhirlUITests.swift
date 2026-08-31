@@ -53,6 +53,8 @@ final class WhirlUITests: XCTestCase {
 
         XCTAssertTrue(app.staticTexts["General"].waitForExistence(timeout: 5))
         XCTAssertFalse(app.buttons["Hide Sidebar"].exists)
+        XCTAssertTrue(app.staticTexts["Picker layout"].exists)
+        XCTAssertTrue(app.popUpButtons["overlay.layout.picker"].exists)
         app.staticTexts["Shortcuts"].click()
         XCTAssertTrue(app.staticTexts["Alpha Notes"].waitForExistence(timeout: 2))
         XCTAssertTrue(app.staticTexts["Installed apps"].exists)
@@ -103,5 +105,6 @@ final class WhirlUITests: XCTestCase {
         XCTAssertTrue(app.staticTexts["快捷配置"].exists)
         XCTAssertTrue(app.staticTexts["关于"].exists)
         XCTAssertTrue(app.staticTexts["包含应用标签页"].exists)
+        XCTAssertTrue(app.staticTexts["切换布局"].exists)
     }
 }

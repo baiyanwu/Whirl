@@ -886,6 +886,38 @@
         }
       }
     },
+    "general.overlay_layout" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Picker layout"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "切换布局"
+          }
+        }
+      }
+    },
+    "general.overlay_layout_detail" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Used by the application, window, and tab pickers."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "同时应用于应用、窗口和标签切换。"
+          }
+        }
+      }
+    },
     "general.overlay_lower" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -1333,6 +1365,38 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "打开设置添加第一个快捷键。"
+          }
+        }
+      }
+    },
+    "overlay_layout.fan" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fan"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "扇形"
+          }
+        }
+      }
+    },
+    "overlay_layout.horizontal" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Horizontal"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "横向"
           }
         }
       }
