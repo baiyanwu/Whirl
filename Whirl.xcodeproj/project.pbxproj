@@ -532,7 +532,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Whirl/Resources/Whirl.entitlements;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				INFOPLIST_FILE = Whirl/Resources/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Whirl;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
@@ -542,7 +542,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MARKETING_VERSION = 0.1.0;
+				MARKETING_VERSION = 0.1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.baiyanwu.whirl;
 				PRODUCT_NAME = Whirl;
 				SDKROOT = macosx;
@@ -573,7 +573,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Whirl/Resources/Whirl.entitlements;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				INFOPLIST_FILE = Whirl/Resources/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Whirl;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
@@ -583,7 +583,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MARKETING_VERSION = 0.1.0;
+				MARKETING_VERSION = 0.1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.baiyanwu.whirl;
 				PRODUCT_NAME = Whirl;
 				SDKROOT = macosx;
