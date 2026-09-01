@@ -2,6 +2,13 @@ import Foundation
 import Testing
 @testable import Whirl
 
+@MainActor
+private final class AccessibilityTestState {
+    var granted = false
+    var requestCount = 0
+    var settingsOpenCount = 0
+}
+
 struct CoreModelTests {
     @Test func keyBindingOnlyAcceptsLettersAndDigits() {
         #expect(KeyBinding.from(keyCode: 0)?.label == "A")
@@ -30,6 +37,16 @@ struct CoreModelTests {
         #expect(binding.displayText(modifier: .command) == "⌘ + A")
         #expect(binding.displayText(modifier: .shift) == "⇧ + A")
         #expect(binding.displayText(modifier: .control) == "⌃ + A")
+        #expect(OverlayLayoutMetrics.applicationShortcutText(
+            for: binding,
+            modifier: .option,
+            layoutStyle: .horizontal
+        ) == "⌥ + A")
+        #expect(OverlayLayoutMetrics.applicationShortcutText(
+            for: binding,
+            modifier: .option,
+            layoutStyle: .fan
+        ) == "A")
     }
 
     @Test func standardWindowPolicyExcludesDialogs() {
@@ -228,6 +245,114 @@ struct CoreModelTests {
         ) == 180)
     }
 
+    @Test func fanLayoutCreatesCompactOverlappingStackForBothPickerTypes() {
+        #expect(OverlayLayoutMetrics.applicationFanIconSize < OverlayLayoutMetrics.applicationIconSize)
+        #expect(OverlayLayoutMetrics.windowFanIconSize < OverlayLayoutMetrics.windowIconSize)
+        let applicationFan = OverlayLayoutMetrics.applicationFanGeometry(itemCount: 5)
+        let left = applicationFan.transform(at: 0)
+        let centerTransform = applicationFan.transform(at: 2)
+        let right = applicationFan.transform(at: 4)
+
+        #expect(left.rotationDegrees == -OverlayLayoutMetrics.applicationFanMaximumRotation)
+        #expect(centerTransform.rotationDegrees == 0)
+        #expect(right.rotationDegrees == OverlayLayoutMetrics.applicationFanMaximumRotation)
+        #expect(left.offset == centerTransform.offset)
+        #expect(centerTransform.offset == right.offset)
+        #expect(applicationFan.rotationAnchor.y > 1)
+        #expect(applicationFan.commonPivotOffset.y > applicationFan.contentSize.height)
+        #expect(applicationFan.revealOriginRotationDegrees == left.rotationDegrees)
+        #expect(applicationFan.horizontalStep < applicationFan.cardSize.width)
+        #expect(right.zIndex > centerTransform.zIndex)
+        #expect(centerTransform.zIndex > left.zIndex)
+        #expect(OverlayLayoutMetrics.fanRevealItemDuration == 0.12)
+
+        let leftCenter = applicationFan.itemCenter(at: 0)
+        let centerLeftCenter = applicationFan.itemCenter(at: 1)
+        let centerPoint = applicationFan.itemCenter(at: 2)
+        let rightCenter = applicationFan.itemCenter(at: 4)
+        let leftRadius = hypot(
+            leftCenter.x - applicationFan.commonPivotOffset.x,
+            leftCenter.y - applicationFan.commonPivotOffset.y
+        )
+        let centerRadius = hypot(
+            centerPoint.x - applicationFan.commonPivotOffset.x,
+            centerPoint.y - applicationFan.commonPivotOffset.y
+        )
+        let rightRadius = hypot(
+            rightCenter.x - applicationFan.commonPivotOffset.x,
+            rightCenter.y - applicationFan.commonPivotOffset.y
+        )
+        #expect(abs(leftRadius - applicationFan.radius) < 0.001)
+        #expect(abs(centerRadius - applicationFan.radius) < 0.001)
+        #expect(abs(rightRadius - applicationFan.radius) < 0.001)
+        #expect(abs(leftCenter.y - rightCenter.y) < 0.001)
+        #expect(centerPoint.y < leftCenter.y)
+        #expect(
+            abs(
+                rightCenter.x - leftCenter.x
+                    - 4 * OverlayLayoutMetrics.applicationFanStep
+            ) < 0.001
+        )
+        #expect(
+            centerLeftCenter.x - leftCenter.x
+                >= OverlayLayoutMetrics.applicationFanIconSize
+        )
+        #expect(
+            leftCenter.y - centerPoint.y
+                >= applicationFan.cardSize.height / 2
+        )
+
+        let windowFan = OverlayLayoutMetrics.windowFanGeometry(itemCount: 5)
+        #expect(windowFan.horizontalStep < windowFan.cardSize.width)
+        #expect(windowFan.rotationAnchor.y > 1)
+        let firstWindowCenter = windowFan.itemCenter(at: 0)
+        let secondWindowCenter = windowFan.itemCenter(at: 1)
+        #expect(
+            secondWindowCenter.x - firstWindowCenter.x
+                >= windowFan.cardSize.width / 2
+        )
+        let centerWindowPoint = windowFan.itemCenter(at: 2)
+        #expect(
+            firstWindowCenter.y - centerWindowPoint.y
+                >= windowFan.cardSize.height / 2
+        )
+
+        let maximumApplicationFan = OverlayLayoutMetrics.applicationFanGeometry(itemCount: 36)
+        #expect(
+            maximumApplicationFan.itemCenter(at: 1).x
+                - maximumApplicationFan.itemCenter(at: 0).x
+                >= OverlayLayoutMetrics.applicationFanIconSize
+        )
+        let denseWindowFan = OverlayLayoutMetrics.windowFanGeometry(itemCount: 20)
+        #expect(
+            denseWindowFan.itemCenter(at: 1).x
+                - denseWindowFan.itemCenter(at: 0).x
+                >= denseWindowFan.cardSize.width / 2
+        )
+
+        let horizontalApplicationSize = OverlayLayoutMetrics.applicationContentSize(
+            itemCount: 5,
+            layoutStyle: .horizontal
+        )
+        let fanApplicationSize = OverlayLayoutMetrics.applicationContentSize(
+            itemCount: 5,
+            layoutStyle: .fan
+        )
+        #expect(fanApplicationSize.width < horizontalApplicationSize.width * 0.95)
+        #expect(fanApplicationSize.height > horizontalApplicationSize.height)
+
+        let horizontalWindowSize = OverlayLayoutMetrics.windowContentSize(
+            itemCount: 5,
+            layoutStyle: .horizontal
+        )
+        let fanWindowSize = OverlayLayoutMetrics.windowContentSize(
+            itemCount: 5,
+            layoutStyle: .fan
+        )
+        #expect(fanWindowSize.width < horizontalWindowSize.width * 0.95)
+        #expect(fanWindowSize.height > horizontalWindowSize.height)
+    }
+
     @Test func windowPickerDisplayDurationDefaultsAndClampsPersistedValues() {
         #expect(AppPreferences.default.windowPickerDisplayDuration == 5)
         #expect(AppPreferences.normalizedWindowPickerDisplayDuration(0) == 1)
@@ -235,6 +360,27 @@ struct CoreModelTests {
         #expect(AppPreferences.normalizedWindowPickerDisplayDuration(9) == 5)
         #expect(AppPreferences.normalizedWindowPickerDisplayDuration(.infinity) == 5)
         #expect(OverlayDismissalPolicy.messageDelay == 2)
+    }
+
+    @Test func longPressDurationDefaultsToTwoHundredMillisecondsAndAllowsFifty() throws {
+        #expect(AppPreferences.default.longPressDuration == 0.2)
+        #expect(AppPreferences.normalizedLongPressDuration(0) == 0.05)
+        #expect(AppPreferences.normalizedLongPressDuration(0.05) == 0.05)
+        #expect(AppPreferences.normalizedLongPressDuration(0.2) == 0.2)
+        #expect(AppPreferences.normalizedLongPressDuration(2) == 1)
+        #expect(AppPreferences.normalizedLongPressDuration(.infinity) == 0.2)
+        #expect(AppPreferences(longPressDuration: 0.01).longPressDuration == 0.05)
+
+        let clampedStoredPreferences = try JSONDecoder().decode(
+            AppPreferences.self,
+            from: Data(#"{ "longPressDuration": 0.01 }"#.utf8)
+        )
+        #expect(clampedStoredPreferences.longPressDuration == 0.05)
+        let missingStoredPreferences = try JSONDecoder().decode(
+            AppPreferences.self,
+            from: Data(#"{}"#.utf8)
+        )
+        #expect(missingStoredPreferences.longPressDuration == 0.2)
     }
 
     @Test func overlayVerticalPositionDefaultsAndClampsPersistedValues() {
@@ -281,6 +427,7 @@ struct CoreModelTests {
         preferences.applicationOverlayOpacity = 0.65
         preferences.windowOverlayVerticalPosition = -0.3
         preferences.windowOverlayOpacity = 0.8
+        preferences.overlayLayoutStyle = .fan
         service.savePreferences(preferences)
         #expect(service.loadPreferences() == preferences)
     }
@@ -305,6 +452,7 @@ struct CoreModelTests {
         #expect(preferences.applicationOverlayOpacity == AppPreferences.defaultOverlayOpacity)
         #expect(preferences.windowOverlayVerticalPosition == AppPreferences.defaultOverlayVerticalPosition)
         #expect(preferences.windowOverlayOpacity == AppPreferences.defaultOverlayOpacity)
+        #expect(preferences.overlayLayoutStyle == .horizontal)
     }
 
     @Test func pointBasedOverlayPositionMigratesToPercentage() throws {
@@ -417,24 +565,22 @@ struct CoreModelTests {
         #expect(repaired.storedPath == relocatedURL.path)
     }
 
-    @Test func accessibilityRequestOpensSettingsAndRefreshesRequiredPermission() throws {
+    @Test @MainActor func accessibilityRequestOpensSettingsAndRefreshesRequiredPermission() throws {
         let suiteName = "WhirlTests.\(UUID().uuidString)"
         let defaults = try #require(UserDefaults(suiteName: suiteName))
         defer { defaults.removePersistentDomain(forName: suiteName) }
 
-        var accessibilityGranted = false
-        var accessibilityRequests = 0
-        var accessibilitySettingsOpens = 0
+        let state = AccessibilityTestState()
         let environment = AppEnvironment(
             permissionSnapshot: {
-                PermissionSnapshot(accessibilityGranted: accessibilityGranted)
+                PermissionSnapshot(accessibilityGranted: state.granted)
             },
             requestAccessibility: {
-                accessibilityRequests += 1
+                state.requestCount += 1
                 return false
             },
             openAccessibilitySettings: {
-                accessibilitySettingsOpens += 1
+                state.settingsOpenCount += 1
                 return true
             },
             installedApplications: { [] },
@@ -447,10 +593,10 @@ struct CoreModelTests {
         defer { model.stop() }
 
         model.requestAccessibility()
-        #expect(accessibilityRequests == 1)
-        #expect(accessibilitySettingsOpens == 1)
+        #expect(state.requestCount == 1)
+        #expect(state.settingsOpenCount == 1)
 
-        accessibilityGranted = true
+        state.granted = true
         model.verifyPermissions()
         #expect(model.permissions.accessibilityGranted)
         #expect(model.permissions.allGranted)

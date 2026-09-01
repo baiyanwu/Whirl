@@ -43,7 +43,8 @@ struct GeneralSettingsView: View {
                                 CompactSliderRow(
                                     title: "general.long_press",
                                     value: $model.preferences.longPressDuration,
-                                    range: 0.2 ... 1.0,
+                                    range: AppPreferences.minimumLongPressDuration
+                                        ... AppPreferences.maximumLongPressDuration,
                                     step: 0.05,
                                     valueText: milliseconds(model.preferences.longPressDuration)
                                 )
@@ -180,6 +181,7 @@ struct GeneralSettingsView: View {
 
             GlobalSettingsBar(
                 switchingModifier: $model.preferences.switchingModifier,
+                overlayLayoutStyle: $model.preferences.overlayLayoutStyle,
                 launchAtLogin: Binding(
                     get: { model.launchAtLoginEnabled },
                     set: { model.setLaunchAtLogin($0) }
@@ -299,10 +301,38 @@ private struct SettingsCardRow<Content: View>: View {
 
 private struct GlobalSettingsBar: View {
     @Binding var switchingModifier: SwitchingModifier
+    @Binding var overlayLayoutStyle: OverlayLayoutStyle
     @Binding var launchAtLogin: Bool
 
     var body: some View {
         VStack(spacing: 0) {
+            HStack(spacing: 14) {
+                VStack(alignment: .leading, spacing: 2) {
+                    Text("general.overlay_layout")
+                    Text("general.overlay_layout_detail")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                }
+
+                Spacer(minLength: 16)
+
+                Picker("general.overlay_layout", selection: $overlayLayoutStyle) {
+                    ForEach(OverlayLayoutStyle.allCases) { layoutStyle in
+                        Text(LocalizedStringKey(layoutStyle.localizedKey))
+                            .tag(layoutStyle)
+                    }
+                }
+                .pickerStyle(.menu)
+                .labelsHidden()
+                .frame(width: 190, alignment: .trailing)
+                .accessibilityIdentifier("overlay.layout.picker")
+            }
+            .padding(.horizontal, 22)
+            .padding(.vertical, 12)
+
+            Divider()
+                .padding(.horizontal, 22)
+
             HStack(spacing: 14) {
                 VStack(alignment: .leading, spacing: 2) {
                     Text("general.switching_modifier")

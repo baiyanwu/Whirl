@@ -8,10 +8,19 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+## [0.1.1] - 2026-09-01
+
 ### Added
 
+- A shared picker-layout setting that lets application, window, and compatible tab switchers use either the existing horizontal row or a compact overlapping fan.
 - Simplified Chinese counterparts for all project documentation and GitHub contributor templates.
 - Detailed bilingual GitHub Release notes generated from the versioned English and Simplified Chinese changelog entries.
+- A documented `dev` → `release/vX.Y.Z` → `main` → tag → `dev` workflow, with CI and CodeQL coverage for development, release, and hotfix branches.
+
+### Changed
+
+- Fan pickers now use individual overlapping material cards, a shared lower pivot, compact icons and shortcut labels, and a simultaneous 120 ms reveal that respects Reduce Motion.
+- The application long-press threshold can now be set as low as 50 ms, while new installations default to 200 ms.
 
 ## [0.1.0] - 2026-08-26
 
@@ -28,5 +37,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - Tag-triggered GitHub release-readiness checks and local, Keychain-backed Developer ID signing, Apple notarization, Gatekeeper verification, and verified GitHub Release publication.
 - GitHub issue forms, pull-request checklist, CODEOWNERS, and Dependabot configuration.
 
-[Unreleased]: https://github.com/baiyanwu/Whirl/compare/v0.1.0...HEAD
+[Unreleased]: https://github.com/baiyanwu/Whirl/compare/v0.1.1...HEAD
+[0.1.1]: https://github.com/baiyanwu/Whirl/compare/v0.1.0...v0.1.1
 [0.1.0]: https://github.com/baiyanwu/Whirl/releases/tag/v0.1.0

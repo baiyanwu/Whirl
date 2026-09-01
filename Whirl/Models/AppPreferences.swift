@@ -80,7 +80,24 @@ enum WindowConfirmationKey: String, Codable, CaseIterable, Identifiable, Sendabl
     }
 }
 
+enum OverlayLayoutStyle: String, Codable, CaseIterable, Identifiable, Sendable {
+    case horizontal
+    case fan
+
+    var id: String { rawValue }
+
+    var localizedKey: String {
+        switch self {
+        case .horizontal: "overlay_layout.horizontal"
+        case .fan: "overlay_layout.fan"
+        }
+    }
+}
+
 struct AppPreferences: Codable, Equatable, Sendable {
+    static let defaultLongPressDuration = 0.20
+    static let minimumLongPressDuration = 0.05
+    static let maximumLongPressDuration = 1.0
     static let defaultAnimationDuration = 0.20
     static let defaultWindowPickerDisplayDuration = 5.0
     static let minimumWindowPickerDisplayDuration = 1.0
@@ -94,32 +111,34 @@ struct AppPreferences: Codable, Equatable, Sendable {
     private static let legacyMaximumOverlayVerticalOffset = 300.0
 
     var switchingModifier: SwitchingModifier = .option
-    var longPressDuration: Double = 0.4
+    var longPressDuration: Double = Self.defaultLongPressDuration
     var doubleTapInterval: Double = 0.3
     var animationDuration: Double = Self.defaultAnimationDuration
     var applicationOverlayVerticalPosition: Double = Self.defaultOverlayVerticalPosition
     var applicationOverlayOpacity: Double = Self.defaultOverlayOpacity
     var windowOverlayVerticalPosition: Double = Self.defaultOverlayVerticalPosition
     var windowOverlayOpacity: Double = Self.defaultOverlayOpacity
+    var overlayLayoutStyle: OverlayLayoutStyle = .horizontal
     var includeApplicationTabs = false
     var windowPickerDisplayDuration: Double = Self.defaultWindowPickerDisplayDuration
     var windowConfirmationKey: WindowConfirmationKey = .enter
 
     init(
         switchingModifier: SwitchingModifier = .option,
-        longPressDuration: Double = 0.4,
+        longPressDuration: Double = Self.defaultLongPressDuration,
         doubleTapInterval: Double = 0.3,
         animationDuration: Double = Self.defaultAnimationDuration,
         applicationOverlayVerticalPosition: Double = Self.defaultOverlayVerticalPosition,
         applicationOverlayOpacity: Double = Self.defaultOverlayOpacity,
         windowOverlayVerticalPosition: Double = Self.defaultOverlayVerticalPosition,
         windowOverlayOpacity: Double = Self.defaultOverlayOpacity,
+        overlayLayoutStyle: OverlayLayoutStyle = .horizontal,
         includeApplicationTabs: Bool = false,
         windowPickerDisplayDuration: Double = Self.defaultWindowPickerDisplayDuration,
         windowConfirmationKey: WindowConfirmationKey = .enter
     ) {
         self.switchingModifier = switchingModifier
-        self.longPressDuration = longPressDuration
+        self.longPressDuration = Self.normalizedLongPressDuration(longPressDuration)
         self.doubleTapInterval = doubleTapInterval
         self.animationDuration = animationDuration
         self.applicationOverlayVerticalPosition = Self.normalizedOverlayVerticalPosition(
@@ -130,6 +149,7 @@ struct AppPreferences: Codable, Equatable, Sendable {
             windowOverlayVerticalPosition
         )
         self.windowOverlayOpacity = Self.normalizedOverlayOpacity(windowOverlayOpacity)
+        self.overlayLayoutStyle = overlayLayoutStyle
         self.includeApplicationTabs = includeApplicationTabs
         self.windowPickerDisplayDuration = Self.normalizedWindowPickerDisplayDuration(windowPickerDisplayDuration)
         self.windowConfirmationKey = windowConfirmationKey
@@ -144,6 +164,7 @@ struct AppPreferences: Codable, Equatable, Sendable {
         case applicationOverlayOpacity
         case windowOverlayVerticalPosition
         case windowOverlayOpacity
+        case overlayLayoutStyle
         case includeApplicationTabs
         case windowPickerDisplayDuration
         case windowConfirmationKey
@@ -161,7 +182,9 @@ struct AppPreferences: Codable, Equatable, Sendable {
             SwitchingModifier.self,
             forKey: .switchingModifier
         ) ?? .option
-        longPressDuration = try values.decodeIfPresent(Double.self, forKey: .longPressDuration) ?? 0.4
+        let storedLongPressDuration = try values.decodeIfPresent(Double.self, forKey: .longPressDuration)
+            ?? Self.defaultLongPressDuration
+        longPressDuration = Self.normalizedLongPressDuration(storedLongPressDuration)
         doubleTapInterval = try values.decodeIfPresent(Double.self, forKey: .doubleTapInterval) ?? 0.3
         let storedAnimationDuration = try values.decodeIfPresent(Double.self, forKey: .animationDuration)
             ?? Self.defaultAnimationDuration
@@ -204,6 +227,10 @@ struct AppPreferences: Codable, Equatable, Sendable {
             try values.decodeIfPresent(Double.self, forKey: .windowOverlayOpacity)
                 ?? legacyOverlayOpacity
         )
+        overlayLayoutStyle = try values.decodeIfPresent(
+            OverlayLayoutStyle.self,
+            forKey: .overlayLayoutStyle
+        ) ?? .horizontal
         includeApplicationTabs = try values.decodeIfPresent(Bool.self, forKey: .includeApplicationTabs) ?? false
         let storedWindowPickerDisplayDuration = try values.decodeIfPresent(
             Double.self,
@@ -216,6 +243,11 @@ struct AppPreferences: Codable, Equatable, Sendable {
             WindowConfirmationKey.self,
             forKey: .windowConfirmationKey
         ) ?? .enter
+    }
+
+    static func normalizedLongPressDuration(_ value: Double) -> Double {
+        guard value.isFinite else { return defaultLongPressDuration }
+        return min(max(value, minimumLongPressDuration), maximumLongPressDuration)
     }
 
     static func normalizedWindowPickerDisplayDuration(_ value: Double) -> Double {

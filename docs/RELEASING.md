@@ -56,7 +56,19 @@ The version sections in `CHANGELOG.md` and `CHANGELOG.zh-CN.md` are the only sou
 
 The generator rejects a missing version section, an empty section, unequal English and Chinese entry counts, a bare URL entry, or a `Full Changelog` entry used as release content. Do not replace the generated body with GitHub's automatic `--generate-notes` output.
 
-## 1. Prepare the version
+## 1. Cut a release branch from `dev`
+
+Use the versioned `release/vX.Y.Z` naming convention. The examples below use `v0.2.0`; replace it with the version being prepared.
+
+```sh
+git switch dev
+git pull --ff-only origin dev
+git switch -c release/v0.2.0
+```
+
+Do not create a tag yet. A release tag is valid only after this branch has been reviewed and merged into `main`.
+
+## 2. Prepare the version on the release branch
 
 1. Set `MARKETING_VERSION` and increment `CURRENT_PROJECT_VERSION` in `project.yml`.
 2. Move relevant entries from `Unreleased` to a dated section in `CHANGELOG.md`, and mirror the release notes in `CHANGELOG.zh-CN.md`.
@@ -64,14 +76,14 @@ The generator rejects a missing version section, an empty section, unequal Engli
 4. Regenerate the checked-in project and inspect the diff.
 
 ```sh
-zsh scripts/generate-release-notes.sh v0.1.0
+zsh scripts/generate-release-notes.sh v0.2.0
 xcodegen generate
 git diff -- project.yml Whirl.xcodeproj CHANGELOG.md CHANGELOG.zh-CN.md
 ```
 
-Replace `v0.1.0` in the examples with the release tag being prepared.
+Only release preparation and release-blocking fixes may be added after the branch is cut. Ordinary development continues on `dev`.
 
-## 2. Verify and commit the source
+## 3. Verify, push, and merge the release branch
 
 ```sh
 xcodebuild \
@@ -81,27 +93,31 @@ xcodebuild \
   -derivedDataPath .build/TestDerivedData \
   CODE_SIGNING_ALLOWED=NO \
   test
+git push -u origin release/v0.2.0
 ```
 
-Commit the version change, push `main`, and wait for CI and CodeQL to pass. The release must be reproducibly tied to one commit contained in `main`.
+Open a pull request from `release/v0.2.0` into `main`. Wait for CI and CodeQL, review the complete version and bilingual notes, and merge only after all checks pass. Do not publish or tag the unmerged release branch.
 
-## 3. Push an annotated release tag
+## 4. Tag the merged `main` commit
 
-The tag must use the exact `vX.Y.Z` format and match `MARKETING_VERSION` in `project.yml`:
+Update local `main` after the release pull request is merged. The tag must use the exact `vX.Y.Z` format, match `MARKETING_VERSION`, and point at the resulting `main` commit:
 
 ```sh
-git tag -a v0.1.0 -m "Whirl 0.1.0"
-git push origin v0.1.0
+git switch main
+git pull --ff-only origin main
+git merge-base --is-ancestor origin/release/v0.2.0 HEAD
+git tag -a v0.2.0 -m "Whirl 0.2.0"
+git push origin v0.2.0
 ```
 
-The `Release readiness` workflow independently verifies the annotated tag, version, non-empty English and Simplified Chinese release-note sections, generated project, absence of executable build phases, unit tests, and unsigned Release build. It has read-only repository permission and uses no signing or notarization secrets.
+The `Release readiness` workflow independently verifies the annotated tag, confirms that its commit is contained in `origin/main`, validates the version and non-empty bilingual release-note sections, checks the generated project and absence of executable build phases, runs unit tests, and performs an unsigned Release build. It has read-only repository permission and uses no signing or notarization secrets. The workflow validates readiness; it does not publish a Release.
 
-## 4. Publish from the maintainer Mac
+## 5. Publish from the maintainer Mac
 
-Run one command from the repository checkout:
+After the tag workflow succeeds, run one explicit publication command from a clean local `main` synchronized with `origin/main`:
 
 ```sh
-./scripts/publish-tag.sh v0.1.0
+./scripts/publish-tag.sh v0.2.0
 ```
 
 The publisher:
@@ -122,12 +138,23 @@ The publisher:
 
 If either language is missing a matching version section or concrete bullet points, the process stops before packaging. If a later check fails before draft creation, no Release is created. If a check fails after upload, the Release remains a non-public draft for investigation.
 
-## 5. Final verification
+## 6. Synchronize `main` back into `dev`
+
+After the public GitHub Release and assets are verified, open a pull request from `main` into `dev`. Merge it after CI and CodeQL pass, then confirm that the published `main` history is contained in `dev`:
+
+```sh
+git fetch origin main dev
+git merge-base --is-ancestor origin/main origin/dev
+```
+
+Delete `release/v0.2.0` only after both long-lived branches are synchronized. Merge `main` back into `dev`; do not create a separate release-to-dev merge with a different merge commit. The complete branch policy is defined in [GIT_WORKFLOW.md](GIT_WORKFLOW.md).
+
+## 7. Final verification
 
 Download both public assets from GitHub Releases and verify them independently:
 
 ```sh
-shasum -a 256 -c Whirl-0.1.0.dmg.sha256
-xcrun stapler validate Whirl-0.1.0.dmg
-spctl --assess --type open --context context:primary-signature --verbose=4 Whirl-0.1.0.dmg
+shasum -a 256 -c Whirl-0.2.0.dmg.sha256
+xcrun stapler validate Whirl-0.2.0.dmg
+spctl --assess --type open --context context:primary-signature --verbose=4 Whirl-0.2.0.dmg
 ```

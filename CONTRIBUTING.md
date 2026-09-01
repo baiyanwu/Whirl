@@ -26,9 +26,11 @@ xcodebuild \
   build
 ```
 
-Create a branch from the current `main` branch:
+Create a branch from the current `dev` branch. Ordinary pull requests target `dev`; only reviewed `release/*` and `hotfix/*` branches target `main`:
 
 ```sh
+git switch dev
+git pull --ff-only origin dev
 git switch -c fix/short-description
 ```
 
@@ -69,5 +71,7 @@ A pull request should:
 - include before/after screenshots for visible UI changes;
 - update README, privacy, security, or release documentation when behavior changes, and keep the corresponding English and Simplified Chinese documents synchronized;
 - pass CI and CodeQL.
+
+See [docs/GIT_WORKFLOW.md](docs/GIT_WORKFLOW.md) for the complete daily-development, release, hotfix, tagging, and branch-synchronization policy.
 
 By submitting a contribution, you agree that it may be distributed under the repository's MIT License.

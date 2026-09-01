@@ -4,9 +4,13 @@ on:
   push:
     branches:
       - main
+      - dev
+      - "release/**"
+      - "hotfix/**"
   pull_request:
     branches:
       - main
+      - dev
   workflow_dispatch:
 
 permissions:
@@ -27,6 +31,21 @@ jobs:
         uses: actions/checkout@v7
         with:
           persist-credentials: false
+
+      - name: Enforce pull request branch flow
+        if: github.event_name == 'pull_request'
+        shell: bash
+        env:
+          BASE_BRANCH: ${{ github.base_ref }}
+          HEAD_BRANCH: ${{ github.head_ref }}
+        run: |
+          set -euo pipefail
+          if [[ "$BASE_BRANCH" == "main" && \
+                ! "$HEAD_BRANCH" =~ ^(release|hotfix)/v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "Pull requests into main must come from release/vX.Y.Z or hotfix/vX.Y.Z."
+            echo "Ordinary development pull requests must target dev."
+            exit 1
+          fi
 
       - name: Show toolchain
         run: |

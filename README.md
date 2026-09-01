@@ -100,7 +100,7 @@ project.yml     Source of truth for the generated Xcode project
 
 ## Release
 
-Official binary releases start from annotated `vX.Y.Z` tags. GitHub Actions verifies the tagged source and its detailed English and Simplified Chinese release notes without receiving signing credentials. A maintainer then rebuilds that exact tag locally, signs with a Developer ID identity held only in the local Keychain, notarizes with Apple, verifies Gatekeeper acceptance and SHA-256 integrity, and publishes the verified assets with release notes generated from both versioned changelogs. The repository deliberately does not publish an unsigned end-user build. Maintainers should follow [docs/RELEASING.md](docs/RELEASING.md).
+Day-to-day changes merge into `dev`. A release is stabilized on `release/vX.Y.Z`, merged into stable `main`, and only then tagged on the resulting `main` commit. GitHub Actions verifies the tagged source and its detailed English and Simplified Chinese release notes without receiving signing credentials. A maintainer then rebuilds that exact tag locally, signs with a Developer ID identity held only in the local Keychain, notarizes with Apple, verifies Gatekeeper acceptance and SHA-256 integrity, and publishes the verified assets with release notes generated from both versioned changelogs. The repository deliberately does not publish an unsigned end-user build. Maintainers should follow the [Git workflow](docs/GIT_WORKFLOW.md) and [release procedure](docs/RELEASING.md).
 
 ## Contributing and support
 

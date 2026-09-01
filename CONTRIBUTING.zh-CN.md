@@ -26,9 +26,11 @@ xcodebuild \
   build
 ```
 
-从当前 `main` 分支创建新分支：
+从当前 `dev` 分支创建新分支。普通拉取请求以 `dev` 为目标分支；只有经过审查的 `release/*` 和 `hotfix/*` 分支以 `main` 为目标分支：
 
 ```sh
+git switch dev
+git pull --ff-only origin dev
 git switch -c fix/short-description
 ```
 
@@ -69,5 +71,7 @@ xcodebuild \
 - 对可见 UI 改动提供修改前后截图；
 - 在行为变化时更新 README、隐私、安全或发布文档，并同步维护对应的英文和简体中文文档；
 - 通过 CI 和 CodeQL。
+
+完整的日常开发、发布、紧急修复、标签和分支同步规范，请参阅 [docs/GIT_WORKFLOW.zh-CN.md](docs/GIT_WORKFLOW.zh-CN.md)。
 
 提交贡献即表示你同意该贡献可按照仓库的 MIT License 进行分发。
